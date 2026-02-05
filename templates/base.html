@@ -166,15 +166,6 @@
     <!-- Custom JS -->
     <script src="{% static 'js/script.js' %}" defer></script>
     
-    <!-- Progress Bar Fixer -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.progress-bar[data-width]').forEach(function(bar) {
-                bar.style.width = bar.getAttribute('data-width');
-            });
-        });
-    </script>
-    
     {% block extra_js %}{% endblock %}
 </body>
 </html>

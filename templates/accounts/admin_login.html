@@ -68,22 +68,5 @@
     </div>
 </section>
 
-<script>
-// Form validation
-(function () {
-    'use strict';
-    window.addEventListener('load', function () {
-        let forms = document.querySelectorAll('.needs-validation');
-        Array.prototype.slice.call(forms).forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-</script>
+
 {% endblock %}

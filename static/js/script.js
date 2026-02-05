@@ -17,7 +17,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize animations
     initializeAOS();
+
+    // Auto-width progress bars
+    initProgressBars();
 });
+
+/**
+ * Auto-width progress bars based on data-width attribute
+ */
+function initProgressBars() {
+    document.querySelectorAll('.progress-bar[data-width]').forEach(function(bar) {
+        bar.style.width = bar.getAttribute('data-width');
+    });
+}
 
 /**
  * Initialize Bootstrap components
