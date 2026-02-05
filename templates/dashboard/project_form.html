@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if project %}Edit{% else %}Add{% endif %} Project - Admin Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h1 class="fw-bold mb-5">
+            {% if project %}
+            <i class="fas fa-edit"></i> Edit Project
+            {% else %}
+            <i class="fas fa-plus"></i> Add New Project
+            {% endif %}
+        </h1>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form method="POST" enctype="multipart/form-data" class="card shadow-sm border-0">
+                    {% csrf_token %}
+                    <div class="card-body p-5">
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Project Title *</label>
+                            <input type="text" class="form-control form-control-lg" id="title" name="title" 
+                                   value="{% if project %}{{ project.title }}{% endif %}" 
+                                   placeholder="Enter project title" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-bold">Short Description *</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" 
+                                      placeholder="Brief description of the project" required>{% if project %}{{ project.description }}{% endif %}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="long_description" class="form-label fw-bold">Detailed Description</label>
+                            <textarea class="form-control" id="long_description" name="long_description" rows="5" 
+                                      placeholder="More detailed information about the project">{% if project %}{{ project.long_description }}{% endif %}</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="technologies" class="form-label fw-bold">Technologies Used *</label>
+                            <input type="text" class="form-control" id="technologies" name="technologies" 
+                                   value="{% if project %}{{ project.technologies }}{% endif %}"
+                                   placeholder="Django, Python, HTML, CSS, JavaScript" required>
+                            <small class="text-muted">Separate technologies with commas</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="github_url" class="form-label fw-bold">GitHub URL</label>
+                                <input type="url" class="form-control" id="github_url" name="github_url" 
+                                       value="{% if project %}{{ project.github_url }}{% endif %}"
+                                       placeholder="https://github.com/username/project">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="live_url" class="form-label fw-bold">Live Demo URL</label>
+                                <input type="url" class="form-control" id="live_url" name="live_url" 
+                                       value="{% if project %}{{ project.live_url }}{% endif %}"
+                                       placeholder="https://project-demo.com">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label fw-bold">Project Image</label>
+                            <input type="file" class="form-control form-control-lg" id="image" name="image" accept="image/*">
+                            {% if project.image %}
+                            <small class="text-muted d-block mt-2">Current: <a href="{{ project.image.url }}" target="_blank">View Image</a></small>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> {% if project %}Update{% else %}Create{% endif %} Project
+                            </button>
+                            <a href="{% url 'projects_manage' %}" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

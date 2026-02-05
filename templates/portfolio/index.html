@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Home - {{ site_about.name|default:"Wilson Maina" }}{% endblock %}
+
+{% block favicon %}
+<link rel="icon" type="image/png" href="{% static 'images/icons/icons8-messages-50.png' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="modern-hero text-white">
+    <div class="hero-glow"></div>
+    <div class="container py-5">
+        <div class="row align-items-center g-5 py-4">
+            <div class="col-lg-6">
+                <span class="hero-pill"><i class="fas fa-circle"></i> Available for internships</span>
+                <h1 class="display-4 fw-bold mt-3">Building elegant, secure web experiences.</h1>
+                <p class="lead text-white-75 mt-3">
+                    I'm Wilson Maina, a Software Engineering student focused on full-stack development and cybersecurity. I design
+                    clean interfaces and build reliable, scalable systems.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="{% url 'projects' %}" class="btn btn-light btn-lg">
+                        <i class="fas fa-folder-open"></i> Explore Projects
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-envelope"></i> Let’s Talk
+                    </a>
+                </div>
+                <div class="hero-meta d-flex flex-wrap gap-4 mt-4">
+                    <div>
+                        <div class="meta-label">Location</div>
+                        <div class="meta-value">Kenya</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Focus</div>
+                        <div class="meta-value">Web Apps & Security</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">Currently</div>
+                        <div class="meta-value">Second Year @ Kirinyaga</div>
+                    </div>
+                </div>
+                <div class="hero-social mt-4">
+                    <a href="https://www.linkedin.com/in/wilson-maina-njuguna-31a3192a5/" class="hero-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/willyjohne2" class="hero-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/kijanaWamaina" class="hero-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="mailto:njugunawilson977@gmail.com" class="hero-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image-wrap">
+                    <img src="{% static 'images/photo_1_2026-02-03_11-06-03.jpg' %}" alt="Profile" class="img-fluid" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Metrics -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="metric-card">
+                    <div class="metric-value">10+</div>
+                    <div class="metric-label">Projects Completed</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card">
+                    <div class="metric-value">15+</div>
+                    <div class="metric-label">Skills & Tools</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card">
+                    <div class="metric-value">2nd</div>
+                    <div class="metric-label">Year Student</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="metric-card">
+                    <div class="metric-value">Kenya</div>
+                    <div class="metric-label">Based In</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <span class="section-kicker">My Toolkit</span>
+            <h2 class="fw-bold">Skills & Technologies</h2>
+            <p class="text-muted">Focused on quality, performance, and modern web standards.</p>
+        </div>
+
+        <div class="row g-4">
+            {% for category, skills_list in skills_by_category.items %}
+            <div class="col-md-6 col-lg-3">
+                <div class="skill-card h-100">
+                    <h6 class="text-uppercase fw-bold text-primary mb-3">{{ category }}</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for skill in skills_list %}
+                        <span class="badge badge-ghost">{{ skill.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">Skills coming soon...</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-card text-white text-center">
+            <h2 class="fw-bold mb-3">Let’s build something impactful.</h2>
+            <p class="lead mb-4">Have an idea or a project? I’d love to collaborate.</p>
+            <a href="{% url 'contact' %}" class="btn btn-light btn-lg">
+                <i class="fas fa-envelope"></i> Send a Message
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

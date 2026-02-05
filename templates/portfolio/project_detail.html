@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}{{ project.title }} - {{ site_about.name|default:"Wilson Maina" }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'projects' %}">Projects</a></li>
+                <li class="breadcrumb-item active">{{ project.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="row g-5">
+            <!-- Project Image & Info -->
+            <div class="col-lg-8">
+                 {% if project.image %}
+                 <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid rounded shadow mb-4" loading="lazy">
+                 {% else %}
+                 <div class="bg-secondary text-white d-flex align-items-center justify-content-center rounded shadow mb-4" style="min-height: 400px;">
+                    <i class="fas fa-image fa-5x opacity-25"></i>
+                 </div>
+                 {% endif %}
+                
+                <h1 class="fw-bold mb-3">{{ project.title }}</h1>
+                
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-align-left"></i> Project Description</h5>
+                    <p class="lead">{{ project.description }}</p>
+                </div>
+
+                {% if project.long_description %}
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-file-alt"></i> Details</h5>
+                    <p>{{ project.long_description }}</p>
+                </div>
+                {% endif %}
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-tools"></i> Technologies Used</h5>
+                    <div>
+                        {% for tech in project.technologies|split:"," %}
+                        <span class="badge badge-soft me-2 mb-2 p-2">{{ tech|trim }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="mb-4 pb-4 border-bottom">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-link"></i> Links</h5>
+                    <div class="d-flex gap-3">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline-dark">
+                            <i class="fab fa-github"></i> View on GitHub
+                        </a>
+                        {% endif %}
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn btn-outline-primary">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card surface-card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3"><i class="fas fa-info-circle"></i> Project Info</h5>
+                        <div class="mb-3">
+                            <small class="text-muted d-block">Created</small>
+                            <p class="mb-0">{{ project.created_at|date:"F j, Y" }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-muted d-block">Last Updated</small>
+                            <p class="mb-0">{{ project.updated_at|date:"F j, Y" }}</p>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block">Status</small>
+                            <p class="mb-0"><span class="badge bg-success">Completed</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                {% if other_projects %}
+                <div class="card surface-card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3"><i class="fas fa-star"></i> Other Projects</h5>
+                        <div class="list-group list-group-flush">
+                            {% for other in other_projects %}
+                            <a href="{% url 'project_detail' other.pk %}" class="list-group-item list-group-item-action">
+                                <h6 class="mb-1">{{ other.title }}</h6>
+                                <small class="text-muted">{{ other.description|truncatewords:8 }}</small>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="row mt-5">
+            <div class="col-lg-8">
+                <div class="alert alert-info" role="alert">
+                    <h5 class="alert-heading"><i class="fas fa-envelope"></i> Interested in similar work?</h5>
+                    <p class="mb-0">Feel free to <a href="{% url 'contact' %}" class="alert-link">contact me</a> if you'd like to discuss this project or collaborate on something new!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <nav aria-label="Project navigation">
+                    <ul class="pagination justify-content-between">
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'projects' %}"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'contact' %}">Get In Touch <i class="fas fa-arrow-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Manage Projects - Admin Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="fw-bold">
+                <i class="fas fa-folder-open"></i> Manage Projects
+            </h1>
+            <a href="{% url 'project_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Project
+            </a>
+        </div>
+
+        {% if projects %}
+        <div class="table-responsive card shadow-sm border-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Technologies</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td class="fw-bold">{{ project.title }}</td>
+                        <td>
+                            {% for tech in project.technologies|split:"," %}
+                            <span class="badge bg-info me-1">{{ tech|truncatewords:1 }}</span>
+                            {% endfor %}
+                        </td>
+                        <td>{{ project.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'project_edit' project.pk %}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="{% url 'project_delete' project.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center py-5">
+            <i class="fas fa-inbox" style="font-size: 2rem;"></i>
+            <h5 class="mt-3">No projects yet</h5>
+            <p class="mb-0">
+                <a href="{% url 'project_create' %}" class="alert-link">Create your first project</a>
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="mt-5">
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

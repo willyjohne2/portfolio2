@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - {{ site_about.name|default:"Wilson Maina" }}{% endblock %}
+
+{% block favicon %}
+<link rel="icon" type="image/png" href="{% static 'images/icons/icons8-contact-us-50.png' %}">
+{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h1 class="mb-2 fw-bold text-center">Get In Touch</h1>
+        <p class="text-muted text-center mb-5 lead">
+            Have a project in mind or want to collaborate? I'd love to hear from you!
+        </p>
+
+        <div class="row g-4 g-lg-5">
+            <!-- Contact Info -->
+            <div class="col-md-6 col-lg-4">
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-envelope text-primary"></i> Email</h5>
+                    <p class="text-muted">
+                        <a href="mailto:njugunawilson977@gmail.com" class="text-decoration-none">
+                            njugunawilson977@gmail.com
+                        </a>
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt text-danger"></i> Location</h5>
+                    <p class="text-muted">Kenya</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="fw-bold mb-3"><i class="fas fa-graduation-cap text-info"></i> Education</h5>
+                    <p class="text-muted">
+                        Kirinyaga University<br>
+                        <small>Second Year, Software Engineering</small>
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="fw-bold mb-3"><i class="fas fa-share-alt text-success"></i> Connect</h5>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary btn-sm rounded-circle" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-dark btn-sm rounded-circle" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-info btn-sm rounded-circle" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-md-6 col-lg-8">
+                <form method="POST" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label fw-bold">Full Name *</label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               placeholder="Your Name" required>
+                        <div class="invalid-feedback">
+                            Please provide your name.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold">Email Address *</label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               placeholder="your.email@example.com" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid email address.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message" class="form-label fw-bold">Message *</label>
+                        <textarea class="form-control" id="message" name="message" rows="6" 
+                                  placeholder="Tell me about your project or inquiry..." required></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a message.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+
+                    <small class="text-muted d-block mt-3">
+                        I'll get back to you as soon as possible!
+                    </small>
+                </form>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="alert alert-light border" role="alert">
+                    <h5 class="alert-heading"><i class="fas fa-clock"></i> Response Time</h5>
+                    <p class="mb-0">I typically respond to messages within 24-48 hours. Feel free to reach out anytime!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Form validation
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        let forms = document.querySelectorAll('.needs-validation');
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+</script>
+{% endblock %}

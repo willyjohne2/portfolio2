@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if skill %}Edit{% else %}Add{% endif %} Skill - Admin Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h1 class="fw-bold mb-5">
+            {% if skill %}
+            <i class="fas fa-edit"></i> Edit Skill
+            {% else %}
+            <i class="fas fa-plus"></i> Add New Skill
+            {% endif %}
+        </h1>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <form method="POST" class="card shadow-sm border-0">
+                    {% csrf_token %}
+                    <div class="card-body p-5">
+                        <div class="mb-3">
+                            <label for="name" class="form-label fw-bold">Skill Name *</label>
+                            <input type="text" class="form-control form-control-lg" id="name" name="name" 
+                                   value="{% if skill %}{{ skill.name }}{% endif %}"
+                                   placeholder="e.g., Python, Django, JavaScript" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="category" class="form-label fw-bold">Category *</label>
+                            <select class="form-control form-control-lg" id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                {% for value, label in categories %}
+                                <option value="{{ value }}" {% if skill.category == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="proficiency" class="form-label fw-bold">
+                                Proficiency Level (1-100)
+                            </label>
+                            <input type="range" class="form-range" id="proficiency" name="proficiency" 
+                                   min="1" max="100" 
+                                   value="{% if skill %}{{ skill.proficiency }}{% else %}50{% endif %}"
+                                   oninput="document.getElementById('proficiencyValue').textContent = this.value + '%'">
+                            <div class="text-center mt-2">
+                                <span id="proficiencyValue" class="badge bg-primary">
+                                    {% if skill %}{{ skill.proficiency }}{% else %}50{% endif %}%
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="fas fa-save"></i> {% if skill %}Update{% else %}Add{% endif %} Skill
+                            </button>
+                            <a href="{% url 'skills_manage' %}" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
