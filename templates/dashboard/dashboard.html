@@ -134,6 +134,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-6 col-lg-3 mb-3">
+                <div class="card shadow-sm border-0 text-center h-100">
+                    <div class="card-body">
+                        <i class="fas fa-user-lock text-dark" style="font-size: 2rem;"></i>
+                        <h5 class="card-title mt-3 mb-3">Profile Settings</h5>
+                        <a href="{% url 'profile_settings' %}" class="btn btn-sm btn-dark">Manage</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Recent Activity -->
@@ -160,6 +170,10 @@
                             <div class="list-group-item">
                                 <h6 class="mb-1"><i class="fas fa-envelope"></i> Contact Messages</h6>
                                 <small class="text-muted">View and manage messages from portfolio visitors</small>
+                            </div>
+                            <div class="list-group-item">
+                                <h6 class="mb-1"><i class="fas fa-user-lock"></i> Security & Profile</h6>
+                                <small class="text-muted">Change your administrative username and secure your password</small>
                             </div>
                         </div>
                     </div>

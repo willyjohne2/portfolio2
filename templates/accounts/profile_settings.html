@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile Settings - Wilson Maina Portfolio{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="fw-bold">
+                <i class="fas fa-user-cog"></i> Profile Settings
+            </h1>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <!-- Username Change -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold mb-4">Update Username</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="update_username">
+                            <div class="mb-3">
+                                <label for="username" class="form-label text-muted small fw-bold">Current Username</label>
+                                <input type="text" class="form-control" value="{{ user.username }}" disabled>
+                            </div>
+                            <div class="mb-4">
+                                <label for="new_username" class="form-label text-muted small fw-bold">New Username</label>
+                                <input type="text" name="username" id="new_username" class="form-control bg-light" placeholder="Enter new username" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+                                Update Username
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Change -->
+            <div class="col-md-6">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <h4 class="card-title fw-bold mb-4">Change Password</h4>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="update_password">
+                            
+                            {% for field in password_form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label text-muted small fw-bold">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}" name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control bg-light" placeholder="{{ field.label }}" required>
+                                {% if field.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ field.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                                {% if field.help_text %}
+                                    <div class="text-muted extra-small mt-1" style="font-size: 0.75rem;">
+                                        {{ field.help_text|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-primary w-100 fw-bold py-2 mt-2">
+                                Update Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .extra-small {
+        font-size: 0.7rem;
+        line-height: 1.2;
+    }
+</style>
+{% endblock %}
