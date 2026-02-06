@@ -29,6 +29,10 @@ ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS", default=[".onrender.com", "localhost", "127.0.0.1"]
 )
 
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS", default=["https://*.onrender.com"]
+)
+
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
