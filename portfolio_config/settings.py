@@ -116,7 +116,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 # Enable WhiteNoise storage for efficient static file serving
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+WHITENOISE_USE_FINDERS = True
+WHITENOISE_MANIFEST_STRICT = False
 
 # Media files
 MEDIA_URL = "/media/"
